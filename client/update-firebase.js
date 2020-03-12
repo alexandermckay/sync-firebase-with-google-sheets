@@ -33,6 +33,7 @@ const combineRows = (rows, headerRow) =>
 // Format Url
 const formatUrl = (sheetName, token) => {
   const dbUrl = 'https://fir-sheets-sync.firebaseio.com/';
+  // todo: add dbPath: sheets/
   const format = '.json';
   const querySymbol = '?';
   const accessToken = `access_token=${encodeURIComponent(token)}`;
