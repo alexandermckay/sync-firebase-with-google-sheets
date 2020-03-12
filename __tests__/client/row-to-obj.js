@@ -1,5 +1,5 @@
-const { sheetValues } = require('../client/appscript-dependencies');
-const { head, rowToObj } = require('../client/update-firebase');
+const { sheetValues } = require('../../client/appscript-dependencies');
+const { head, rowToObj } = require('../../client/update-firebase');
 
 describe('rowToObj', () => {
   const headerRow = head(sheetValues);

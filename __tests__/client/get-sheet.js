@@ -2,8 +2,8 @@ const {
   getSheet,
   getRows,
   getSheetName
-} = require('../client/update-firebase');
-const { event } = require('../client/appscript-dependencies');
+} = require('../../client/update-firebase');
+const { event } = require('../../client/appscript-dependencies');
 
 describe('getSheet', () => {
   it('should return', () => {

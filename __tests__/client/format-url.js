@@ -1,5 +1,5 @@
-const { formatUrl } = require('../client/update-firebase');
-const { ScriptApp, token } = require('../client/appscript-dependencies');
+const { formatUrl } = require('../../client/update-firebase');
+const { ScriptApp, token } = require('../../client/appscript-dependencies');
 
 describe('formatUrl', () => {
   it('should generate a Url', () => {
