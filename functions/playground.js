@@ -67,3 +67,5 @@ const exec = () => {
 };
 
 exec();
+
+module.exports = exec;
