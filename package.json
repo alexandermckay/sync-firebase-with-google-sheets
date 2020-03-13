@@ -9,7 +9,8 @@
     "eslint-plugin-import": "^2.20.1"
   },
   "dependencies": {
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "ramda": "^0.27.0"
   },
   "scripts": {
     "test": "jest --watchAll"
