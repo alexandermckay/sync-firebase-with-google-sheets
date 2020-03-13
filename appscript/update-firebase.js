@@ -1,4 +1,4 @@
-const { ScriptApp, UrlFetchApp } = require('./appscript-dependencies');
+const { ScriptApp, UrlFetchApp } = require('./testing/appscript-mock');
 // Remove From This Line Up When Adding to AppScript
 
 // Constants

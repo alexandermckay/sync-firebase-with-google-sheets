@@ -1,5 +1,5 @@
-const { formatUrl } = require('../../client/update-firebase');
-const { ScriptApp, token } = require('../../client/appscript-dependencies');
+const { formatUrl } = require('../../appscript/update-firebase');
+const { ScriptApp, token } = require('../../appscript/testing/appscript-mock');
 
 describe('formatUrl', () => {
   it('should generate a Url', () => {

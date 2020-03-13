@@ -1,6 +1,6 @@
 /* eslint-disable quote-props */
-const { sheetValues } = require('../../client/appscript-dependencies');
-const { head, combineRows } = require('../../client/update-firebase');
+const { sheetValues } = require('../../appscript/testing/appscript-mock');
+const { head, combineRows } = require('../../appscript/update-firebase');
 
 describe('combineRows', () => {
   it('should combine row objects into one object', () => {

@@ -5,7 +5,7 @@ const {
   equalsZero,
   head,
   safeKey
-} = require('../../client/update-firebase');
+} = require('../../appscript/update-firebase');
 
 describe('Utils', () => {
   describe('equals', () => {

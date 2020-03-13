@@ -1,5 +1,5 @@
-const { updateFirebase } = require('../../client/update-firebase');
-const { event } = require('../../client/appscript-dependencies');
+const { updateFirebase } = require('../../appscript/update-firebase');
+const { event } = require('../../appscript/testing/appscript-mock');
 
 describe('Update Firebase', () => {
   it('should execute without throwing an error', () => {
