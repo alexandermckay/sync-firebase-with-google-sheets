@@ -63,7 +63,7 @@
 14. Open 'Current Project Triggers'
 15. Click 'Add Trigger'
 16. Add the following settings:
-    ![add-trigger](docs/add-trigger.png){:height="50%"}
+    <img height="50%" src="docs/add-trigger.png" />
 17. Click 'Save' (may have to scroll slightly)
 18. Click 'Advanced' on the 'This App isn't Verified' pop-up
 19. Click 'Go to Firebase'
