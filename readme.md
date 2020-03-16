@@ -80,13 +80,17 @@
 2. Go to the [Google Console](https://console.cloud.google.com/).
 3. Create a new project or select an existing one.
 4. Generate a service account (screenshot).
+   <img align="left" height="350px" src="docs/navigate-credentials-page.png" />
+   <img align="left" height="350px" src="docs/create-credential.png" />
 5. Set 'Role' to 'Owner'.
 6. Download file.
+   <img align="left" height="350px" src="docs/download-file.png" />
 7. Enable the Sheet API for you service account (screenshot)
 8. Copy the spreadsheet Url
 9. Run `node utils/id-extract.js <PASTE SPREADSHEET URL>`
 10. Move the service account file you downloaded into `functions/config` dir and rename it to `service-account.json`.
 11. Share the spreadsheet with the service account email available in the `service-accont.json` file and uncheck `Notify People`.
+    <img align="left" height="350px" src="docs/share-sheet.png" />
 
 ### Attach to Firebase
 
