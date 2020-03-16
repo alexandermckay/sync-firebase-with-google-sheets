@@ -10,9 +10,10 @@
 ### Features
 
 - Multiple sheets.
-- Add/remove cells, columns or rows as you normally would.
+- No column or row range restrictions.
 - Single cell updates (Firebase --> Sheets).
-- Authentication: you can restrict access to sheet to limited number of users.
+- Instantaneous (~1 second delays)
+- Free
 
 ### Testing
 
@@ -57,7 +58,7 @@
 ```
 
 10. Open `Code.gs`
-11. Copy the code from `appscript/update-firebase.js` taking care not to include the imports/exports which are for testing purposes only.
+11. Delete all the existing code in `Code.gs` and replace it with the code from `appscript/update-firebase.js`, taking care not to include the imports/exports which are for testing purposes only.
 12. Update the `dbUrl` in the `formatUrl` function.
 13. Open the 'Edit' menu
 14. Open 'Current Project Triggers'
@@ -73,21 +74,31 @@
 
 ## Firebase to Sheets
 
-1. Enable Google Sheets API:
-2. Download key json file
-3. Copy spreadsheet URL
-4. `node utils/id-extract.js <PASTE SPREADSHEET URL>`
-5. Move key json file into config dir and rename to `service-account.json`
-6. `firebase projects:list`
-7. `firebase use --add`
-8. `firebase deploy --only functions`
+### Authentication
 
-- Explain this You will have to authorize this app to ask you for permission to use the OAuth scopes from earlier. This involves bypassing a warning dialog. Choose "Advanced", follow the instructions, select your Google Account, and authorize the permissions.
-  Note: this processes authorizes your Google account to use the REST API to make changes to your Realtime Database in the same project. If you share this project with others, this trigger will not be installed, and you will have to perform additional steps to allow that other account to make REST calls.
-- `yarn test` (expect to fail). This
+1. Sign into the same Google account you used to create the spreadsheet.
+2. Go to the [Google Console](https://console.cloud.google.com/).
+3. Create a new project or select an existing one.
+4. Generate a service account (screenshot).
+5. Set 'Role' to 'Owner'.
+6. Download file.
+7. Enable the Sheet API for you service account (screenshot)
+8. Copy the spreadsheet Url
+9. Run `node utils/id-extract.js <PASTE SPREADSHEET URL>`
+10. Move the service account file you downloaded into `functions/config` dir and rename it to `service-account.json`.
+11. Share the spreadsheet with the service account email available in the `service-accont.json` file and uncheck `Notify People`.
 
-## Appscript
+### Attach to Firebase
+
+1. Show all available Firebase projects - `firebase projects:list`
+2. Helper to select the one you would like to use - `firebase use --add`
+3. Deploy functions - `firebase deploy --only functions`
+4. Make sure everything is working.
+5. Tighten up restrictions with the read/write rules.
+
+## AppScript
 
 ### Pitfalls
 
-### Code Explanation
+- AppScript does not have feature parity with JavaScript. It only recently (early 2020) made the jump to ES6. Whilst most of the features you would expect have been added. Some such as the `...` operator have not. Using modern features can cause your code to fail silently so test consistently if you decide to refactor or add further code.
+- Don't forget to save!!!
