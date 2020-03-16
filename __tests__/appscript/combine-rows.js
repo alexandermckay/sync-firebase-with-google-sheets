@@ -9,24 +9,19 @@ describe('combineRows', () => {
     const result = combineRows(rows, headerRow);
     const expected = {
       '1': {
-        '0': 'NA',
         name: 'Tom',
         sex: 'M',
         confirm: true,
-        NA: 'NA',
         add: '123 Street',
-        kids: 1,
-        missing: 'NA'
+        kids: 1
       },
       '2': {
         '0': 'NA',
         name: 'Kate',
         sex: 'F',
         confirm: false,
-        NA: 'NA',
         add: '456 Place',
-        kids: 0,
-        missing: 'NA'
+        kids: 0
       }
     };
     expect(result).toEqual(expected);

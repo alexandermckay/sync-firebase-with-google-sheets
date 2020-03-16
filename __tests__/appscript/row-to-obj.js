@@ -7,12 +7,9 @@ describe('rowToObj', () => {
     const rowOne = sheetValues[1];
     const result = rowToObj(rowOne, headerRow);
     const expected = {
-      0: 'NA',
       name: 'Tom',
       sex: 'M',
-      missing: 'NA',
       confirm: true,
-      NA: 'NA',
       add: '123 Street',
       kids: 1
     };
@@ -26,10 +23,8 @@ describe('rowToObj', () => {
       name: 'Kate',
       sex: 'F',
       confirm: false,
-      NA: 'NA',
       add: '456 Place',
-      kids: 0,
-      missing: 'NA'
+      kids: 0
     };
     expect(result).toEqual(expected);
   });
@@ -39,6 +34,6 @@ describe('rowToObj', () => {
     const resultKeys = Object.keys(result);
     expect(rowTwo.length).not.toBe(resultKeys.length);
     expect(rowTwo.length).toBe(10);
-    expect(resultKeys.length).toBe(8);
+    expect(resultKeys.length).toBe(6);
   });
 });

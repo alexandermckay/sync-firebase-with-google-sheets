@@ -1,15 +1,20 @@
-const { ScriptApp, UrlFetchApp } = require('./testing/appscript-mock');
+const { event, ScriptApp, UrlFetchApp } = require('./testing/appscript-mock');
 // Remove From This Line Up When Adding to AppScript
 
 // Constants
 const na = 'NA';
+const emptyStr = '';
 
 // Utils
 const equals = (a) => (b) => a === b;
 const equalsZero = equals(0);
 const equalsFalse = equals(false);
+const equalsNull = equals(null);
+const equalsUndef = equals(undefined);
+const equalsEmptyStr = equals(emptyStr);
 const head = (a) => a[0];
 const safeKey = (a) => (a || equalsZero(a) || equalsFalse(a) ? a : na);
+const empty = (a) => equalsNull(a) || equalsUndef(a) || equalsEmptyStr(a);
 
 // Convert Row Array To Object
 const rowToObj = (row, headerRow) =>
@@ -17,7 +22,8 @@ const rowToObj = (row, headerRow) =>
     const key = safeKey(headerRow[index]);
     const value = safeKey(cell);
     const isIdCell = equalsZero(index);
-    return isIdCell ? acc : Object.assign(acc, { [key]: value });
+    const invalid = isIdCell || empty(cell);
+    return invalid ? acc : Object.assign(acc, { [key]: value });
   }, {});
 
 // Combine All Row Objects Into One Object
@@ -33,11 +39,11 @@ const combineRows = (rows, headerRow) =>
 // Format Url
 const formatUrl = (sheetName, token) => {
   const dbUrl = 'https://fir-sheets-sync.firebaseio.com/';
-  // todo: add dbPath: sheets/
+  const dbPath = 'sheets/';
   const format = '.json';
   const querySymbol = '?';
   const accessToken = `access_token=${encodeURIComponent(token)}`;
-  return `${dbUrl}${sheetName}${format}${querySymbol}${accessToken}`;
+  return `${dbUrl}${dbPath}${sheetName}${format}${querySymbol}${accessToken}`;
 };
 
 // Get Spreadsheet Data
@@ -61,6 +67,8 @@ const updateFirebase = (changeEvent) => {
   };
   UrlFetchApp.fetch(url, fetchOptions);
 };
+
+updateFirebase(event);
 
 // Remove From This Line Down When Copying To AppScript
 module.exports = {
