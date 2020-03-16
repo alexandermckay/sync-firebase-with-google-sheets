@@ -27,6 +27,11 @@
 - `yarn install`
 - `cd functions && npm install && cd ..`
 
+### Firebase
+
+1. Create a Firebase project
+   [firebase-project](docs/create-firebase.gif)
+
 ### Sheets to Firebase
 
 1. Create a new Google Sheet
@@ -56,10 +61,17 @@
 13. Open 'Current Project Triggers'
 14. Click 'Add Trigger'
 15. Add the following settings:
-    ![add-trigger](docs/add-trigger.png)
+    ![add-trigger](docs/add-trigger.png){:height="50%"}
+16. Click 'Save' (may have to scroll slightly)
+17. Click 'Advanced' on the 'This App isn't Verified' pop-up
+18. Click 'Go to Firebase'
+19. Click 'Allow'
 
 - Code breakdown
 
 - Update `dbUrl`
+- Explain this You will have to authorize this app to ask you for permission to use the OAuth scopes from earlier. This involves bypassing a warning dialog. Choose "Advanced", follow the instructions, select your Google Account, and authorize the permissions.
+
+Note: this processes authorizes your Google account to use the REST API to make changes to your Realtime Database in the same project. If you share this project with others, this trigger will not be installed, and you will have to perform additional steps to allow that other account to make REST calls.
 
 - `yarn test` (expect to fail). This
