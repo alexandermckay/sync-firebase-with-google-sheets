@@ -68,9 +68,9 @@ const updateFirebase = (changeEvent) => {
   UrlFetchApp.fetch(url, fetchOptions);
 };
 
+// Remove From This Line Down When Copying To AppScript
 updateFirebase(event);
 
-// Remove From This Line Down When Copying To AppScript
 module.exports = {
   combineRows,
   equals,
