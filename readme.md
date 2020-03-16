@@ -79,12 +79,9 @@
 1. Sign into the same Google account you used to create the spreadsheet.
 2. Go to the [Google Console](https://console.cloud.google.com/).
 3. Create a new project or select an existing one.
-4. Generate a service account (screenshot).
-   <img align="left" height="350px" src="docs/navigate-credentials-page.png" />
-   <img align="left" height="350px" src="docs/create-credential.png" />
+4. Click 'Create Credentials' and generate a service account.
 5. Set 'Role' to 'Owner'.
 6. Download file.
-   <img align="left" height="350px" src="docs/download-file.png" />
 7. Enable the Sheet API for you service account (screenshot)
 8. Copy the spreadsheet Url
 9. Run `node utils/id-extract.js <PASTE SPREADSHEET URL>`
