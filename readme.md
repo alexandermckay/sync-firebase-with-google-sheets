@@ -30,7 +30,8 @@
 ### Firebase
 
 1. Create a Firebase project
-   ![firebase-project](docs/create-firebase.gif)
+   ![firebase-project](docs/create-firebase.gif){:display="block"}
+2. Copy the DB Url
 
 ### Sheets to Firebase
 
@@ -67,11 +68,15 @@
 18. Click 'Advanced' on the 'This App isn't Verified' pop-up
 19. Click 'Go to Firebase'
 20. Click 'Allow'
-
-- Code breakdown
+21. This is what you should see when you edit the sheet:
+    ![sheet-to-firebase](docs/sheet-to-firebase.gif){:display="block"}
 
 - Explain this You will have to authorize this app to ask you for permission to use the OAuth scopes from earlier. This involves bypassing a warning dialog. Choose "Advanced", follow the instructions, select your Google Account, and authorize the permissions.
-
-Note: this processes authorizes your Google account to use the REST API to make changes to your Realtime Database in the same project. If you share this project with others, this trigger will not be installed, and you will have to perform additional steps to allow that other account to make REST calls.
-
+  Note: this processes authorizes your Google account to use the REST API to make changes to your Realtime Database in the same project. If you share this project with others, this trigger will not be installed, and you will have to perform additional steps to allow that other account to make REST calls.
 - `yarn test` (expect to fail). This
+
+## Appscript
+
+### Pitfalls
+
+### Code Explanation
