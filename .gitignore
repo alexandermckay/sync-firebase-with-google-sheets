@@ -2,3 +2,4 @@ node_modules
 service-account.json
 spreadsheet-id.js
 .firebaserc
+.vscode
