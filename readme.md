@@ -39,7 +39,7 @@
 8. Click 'Show manifest file'
 9. Open `appscript.json` and add the following oAuth scopes
 
-```json
+```jsonc
 {
   // other stuff
   "oauthScopes": [
