@@ -40,7 +40,7 @@
 2. Change the file name from 'Untitled Spreadsheet' to 'Firebase' (non-essential)
 3. Change the sheet name from 'Sheet 1' to 'Users' (non-essential)
 4. Open the 'Tools' menu
-5. Open 'Script Editor'
+5. Open 'Script Editor' 
 6. Change the script name from 'Untitled' to 'Firebase' (non-essential)
 7. Open the 'View' menu
 8. Click 'Show manifest file'
@@ -102,4 +102,5 @@
 ### Pitfalls
 
 - AppScript does not have feature parity with JavaScript. It only recently (early 2020) made the jump to ES6. Whilst most of the features you would expect have been added. Some such as the `...` operator have not. Using modern features can cause your code to fail silently so test consistently if you decide to refactor or add further code.
+- In Google Sheets (AppScript), you _may_ have to select the option __Run > Enable New App Script Runtime Powered By Chrome V8__ in order for your code to work.
 - Don't forget to save!!!
