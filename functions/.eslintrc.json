@@ -5,6 +5,9 @@
   "plugins": ["promise"],
   "extends": "eslint:recommended",
   "rules": {
+    "camelcase": "off",
+    "function-paren-newline": "off",
+    "no-else-return": "off",
     "no-console": "off",
     "no-regex-spaces": "off",
     "no-debugger": "off",

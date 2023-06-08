@@ -12,6 +12,7 @@ const addIndex = require('ramda/src/addIndex');
 const ifElse = require('ramda/src/ifElse');
 const always = require('ramda/src/always');
 const append = require('ramda/src/append');
+const keys = require('ramda/src/keys');
 
 // Private Keys
 const spreadsheetId = require('../config/spreadsheet-id');
@@ -22,7 +23,7 @@ const sheets = google.sheets('v4');
 const spreadsheetScope = 'https://www.googleapis.com/auth/spreadsheets';
 
 // Utils
-const fillList = (value) => (arr) => arr.fill(value);
+const fillList = (value) => (arr) => arr.slice().fill(value); // must not mutate the input array!
 const fillListNull = fillList(null);
 const matchRowId = (rowId) => compose(equals(rowId), head);
 const getRowIndex = (rowId) => findIndex(matchRowId(rowId));
@@ -46,8 +47,9 @@ const nullUnchangedRows = (equalsRowIndex, equalsCellIndex) =>
   );
 
 // Find And Update One Value, Append If Missing
-const findUpdateValue = (values, rowId, cellId, updatedValue) => {
+const findUpdateValue = (values, uid, rowId, cellId, updatedValue) => {
   const headerRow = head(values);
+
   const rowIndex = getRowIndex(rowId)(values);
   const cellIndex = indexOf(cellId, headerRow);
   const equalsRowIndex = equals(rowIndex);
@@ -55,15 +57,26 @@ const findUpdateValue = (values, rowId, cellId, updatedValue) => {
   const row2d = getRow2d(rowId)(values);
   const row1d = head(row2d);
   // rowFound, therefore update
-  if (row1d) {
-    const updatedRow = update(cellIndex, updatedValue, row1d);
-    const updatedRows = update(rowIndex, updatedRow, values);
-    return nullUnchangedRows(equalsRowIndex, equalsCellIndex)(updatedRows);
+  const nullAll = map(fillListNull)(values);
+  if (!uid) {
+    if (row1d) {
+      const updatedRow = update(cellIndex, updatedValue, row1d);
+      const updatedRows = update(rowIndex, updatedRow, values);
+      return nullUnchangedRows(equalsRowIndex, equalsCellIndex)(updatedRows);
+    } else {
+      // rowNotFound, don't append, wait for onCreate trigger
+      return null;
+    }
   } else {
-    // rowNotFound, therefore append
-    const nullAll = map(fillListNull)(values);
-    const newRow = update(0, rowId, head(nullAll));
-    // console.log(append(newRow, nullAll))
+    const newRow = update(0, uid, head(nullAll));
+    const updatedKeys = keys(updatedValue);
+    updatedKeys.forEach((k) => {
+      const i = indexOf(k, headerRow);
+      if (i != -1) {
+        newRow[i] = updatedValue[k];
+      }
+    });
+    console.log(newRow);
     return append(newRow, nullAll);
   }
 };
@@ -79,16 +92,17 @@ const sheetConfig = (sheetName) => ({
   range: sheetName
 });
 
-const updateSheet = async (change, context) => {
-  const updatedValue = change.after.val();
+const updateSheet = async (snapshot, context) => {
+  const updatedValue = snapshot.val();
   const {
-    params: { sheet, rowId, cellId }
+    params: { uid, sheet, rowId, cellId }
   } = context;
   await auth.authorize();
+
   const {
     data: { values }
   } = await sheets.spreadsheets.values.get(sheetConfig(sheet));
-  const updatedData = findUpdateValue(values, rowId, cellId, updatedValue);
+  const updatedData = findUpdateValue(values, uid, rowId, cellId, updatedValue);
   // todo: unneccessary
   if (updatedData) {
     const requestObj = Object.assign(sheetConfig(sheet), {
@@ -101,7 +115,11 @@ const updateSheet = async (change, context) => {
 
 const firebaseToSheets = functions.database
   .ref('/sheets/{sheet}/{rowId}/{cellId}')
-  .onUpdate(updateSheet);
+  .onUpdate((change, context) => updateSheet(change.after, context));
+
+const newFBUserToSheets = functions.database
+  .ref('/sheets/{sheet}/{uid}')
+  .onCreate((snapshot, context) => updateSheet(snapshot, context));
 
 module.exports = {
   fillList,
@@ -114,5 +132,6 @@ module.exports = {
   nullUnchangedCells,
   nullUnchangedRows,
   findUpdateValue,
-  sheetConfig
+  sheetConfig,
+  newFBUserToSheets
 };

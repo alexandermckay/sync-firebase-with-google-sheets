@@ -1,5 +1,5 @@
 node_modules
-service-account.json
-spreadsheet-id.js
+config/
 .firebaserc
 .vscode
+.DS_Store
