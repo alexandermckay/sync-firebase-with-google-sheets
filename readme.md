@@ -1,3 +1,5 @@
+# UPDATE: I will be updating this repo sometime in either June or July
+
 # Sync Firebase With Google Sheets
 
 ## Overview
