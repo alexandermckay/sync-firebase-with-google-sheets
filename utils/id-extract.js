@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 
@@ -13,10 +14,17 @@ const dirPath = path.join(__dirname, '..', 'functions', 'config');
 const filePath = path.join(dirPath, 'spreadsheet-id.js');
 
 const createFile = async (k) => {
-  await fs.promises.mkdir(dirPath, {
-    recursive: true
-  });
-  fs.writeFileSync(filePath, `module.exports = "${k}"`);
+  try {
+    await fs.promises.mkdir(dirPath, {
+      recursive: true
+    });
+    fs.writeFileSync(filePath, `module.exports = "${k}"`);
+    console.log(
+      'Successfully created file, please continue with the instructions'
+    );
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 createFile(key);

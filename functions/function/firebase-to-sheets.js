@@ -72,7 +72,7 @@ const findUpdateValue = (values, uid, rowId, cellId, updatedValue) => {
     const updatedKeys = keys(updatedValue);
     updatedKeys.forEach((k) => {
       const i = indexOf(k, headerRow);
-      if (i != -1) {
+      if (i !== -1) {
         newRow[i] = updatedValue[k];
       }
     });

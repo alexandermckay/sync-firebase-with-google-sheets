@@ -10,9 +10,6 @@
     "logs": "firebase functions:log",
     "nodemon": "nodemon"
   },
-  "engines": {
-    "node": "16"
-  },
   "dependencies": {
     "firebase-admin": "^11.8.0",
     "firebase-functions": "^4.3.1",

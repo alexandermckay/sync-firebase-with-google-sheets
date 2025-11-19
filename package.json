@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "24"
+  },
   "devDependencies": {
     "eslint": "^8.40.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5"
   },
   "dependencies": {
+    "firebase-functions": "^4.3.1",
     "jest": "^29.5.0",
     "ramda": "^0.27.0"
   },

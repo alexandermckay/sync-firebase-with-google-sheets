@@ -27,30 +27,33 @@
 #### Installations
 
 - Clone repo
-- `yarn install`
-- `cd functions && npm install && cd ..`
+- `npm install`
+- `npm install --prefix functions`
 
 ### Firebase
 
 1. Create a Firebase project
-   <img height="350px" src="docs/create-firebase.gif" />
-2. Copy the DB Url
+2. Enable Realtime database
+3. Select `Start in test mode`
+4. Copy the reference url. Ends with `firebasedatabase.app`
 
 ### Sheets to Firebase
 
 1. Create a new Google Sheet
 2. Change the file name from 'Untitled Spreadsheet' to 'Firebase' (non-essential)
 3. Change the sheet name from 'Sheet 1' to 'Users' (non-essential)
-4. Open the 'Tools' menu
-5. Open 'Script Editor' 
+4. Open the 'Extensions' menu
+5. Open `AppScript`
 6. Change the script name from 'Untitled' to 'Firebase' (non-essential)
-7. Open the 'View' menu
-8. Click 'Show manifest file'
-9. Open `appscript.json` and add the following oAuth scopes
+7. Open the 'Settings' menu
+8. Check `Show appscript.json file`
+9. Open the Editor menu
+10. Edit`appscript.json` and add the following oAuth scopes
 
 ```jsonc
 {
-  // other stuff
+  "runtimeVersion": "V8",
+  // Add these
   "oauthScopes": [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/firebase.database",
@@ -60,12 +63,12 @@
 ```
 
 10. Open `Code.gs`
-11. Delete all the existing code in `Code.gs` and replace it with the code from `appscript/update-firebase.js`, taking care not to include the imports/exports which are for testing purposes only.
+11. Delete all the existing code in `Code.gs` and replace it with the code from `appscript/update-firebase.js`, taking care not to include the imports/exports which are for testing purposes only. TODO: remove the testss
 12. Update the `dbUrl` in the `formatUrl` function.
 13. Open the 'Edit' menu
 14. Open 'Current Project Triggers'
 15. Click 'Add Trigger'
-16. Add the following settings:
+16. Add the following settings: TODO: remove image and make text
     <img display="block" height="400px" src="docs/add-trigger.png" />
 17. Click 'Save' (may have to scroll slightly)
 18. Click 'Advanced' on the 'This App isn't Verified' pop-up
@@ -81,9 +84,9 @@
 1. Sign into the same Google account you used to create the spreadsheet.
 2. Go to the [Google Console](https://console.cloud.google.com/).
 3. Create a new project or select an existing one.
-4. Click 'Create Credentials' and generate a service account.
+4. Click `API & Services` then `Create Credentials` and generate a service account.
 5. Set 'Role' to 'Owner'.
-6. Download file.
+6. Click `Keys`, `Create key`, `File type .JSON` and then download file.
 7. Enable the Sheet API for you service account (screenshot)
 8. Copy the spreadsheet Url
 9. Run `node utils/id-extract.js <PASTE SPREADSHEET URL>`
@@ -104,5 +107,5 @@
 ### Pitfalls
 
 - AppScript does not have feature parity with JavaScript. It only recently (early 2020) made the jump to ES6. Whilst most of the features you would expect have been added. Some such as the `...` operator have not. Using modern features can cause your code to fail silently so test consistently if you decide to refactor or add further code.
-- In Google Sheets (AppScript), you _may_ have to select the option __Run > Enable New App Script Runtime Powered By Chrome V8__ in order for your code to work.
+- In Google Sheets (AppScript), you _may_ have to select the option **Run > Enable New App Script Runtime Powered By Chrome V8** in order for your code to work.
 - Don't forget to save!!!
